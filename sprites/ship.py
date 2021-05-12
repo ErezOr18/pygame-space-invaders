@@ -10,7 +10,6 @@ class Ship(sprite.Sprite):
         self.speed = 5
 
     def update(self, game, keys, *args):
-        print(keys)
         if keys[K_LEFT] and self.rect.x > 10:
             self.rect.x -= self.speed
         if keys[K_RIGHT] and self.rect.x < 740:
