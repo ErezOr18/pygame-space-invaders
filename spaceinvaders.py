@@ -20,25 +20,26 @@ class SpaceInvaders(object):
         mixer.pre_init(44100, -16, 1, 4096)
         init()
         self.clock = time.Clock()
-        self.caption = display.set_caption('Space Invaders')
+        display.set_caption('Aharai Tech')
         self.screen = SCREEN
-        self.background = image.load(IMAGE_PATH + 'background.jpg').convert()
+        self.background = image.load(IMAGE_PATH + 'download.png').convert()
+        self.background = transform.scale(self.background, (800, 600))
         self.startGame = False
         self.mainScreen = True
         self.game_over = False
         # Counter for enemy starting position (increased each new round)
         self.enemy_position = ENEMY_DEFAULT_POSITION
-        self.titleText = Text(FONT, 50, 'Space Invaders', WHITE, 164, 155)
-        self.titleText2 = Text(FONT, 25, 'Press any key to continue', WHITE,
+        self.titleText = Text(FONT, 50, 'Space Invaders', BLACK, 164, 155)
+        self.titleText2 = Text(FONT, 25, 'Press any key to continue', BLACK,
                                201, 225)
-        self.gameOverText = Text(FONT, 50, 'Game Over', WHITE, 250, 270)
-        self.nextRoundText = Text(FONT, 50, 'Next Round', WHITE, 240, 270)
+        self.gameOverText = Text(FONT, 50, 'Game Over', BLACK, 250, 270)
+        self.nextRoundText = Text(FONT, 50, 'Next Round', BLACK, 240, 270)
         self.enemy1Text = Text(FONT, 25, '   =   10 pts', GREEN, 368, 270)
         self.enemy2Text = Text(FONT, 25, '   =  20 pts', BLUE, 368, 320)
         self.enemy3Text = Text(FONT, 25, '   =  30 pts', PURPLE, 368, 370)
         self.enemy4Text = Text(FONT, 25, '   =  ?????', RED, 368, 420)
-        self.scoreText = Text(FONT, 20, 'Score', WHITE, 5, 5)
-        self.livesText = Text(FONT, 20, 'Lives ', WHITE, 640, 5)
+        self.scoreText = Text(FONT, 20, 'Score', BLACK, 5, 5)
+        self.livesText = Text(FONT, 20, 'Lives ', BLACK, 640, 5)
 
         self.life1 = Life(715, 3)
         self.life2 = Life(742, 3)
@@ -191,7 +192,7 @@ class SpaceInvaders(object):
             EnemyExplosion(enemy, self.explosions_group)
             self.gameTimer = time.get_ticks()
 
-        for mystery in sprite.groupcollide(self.mystey_group , self.bullets,
+        for mystery in sprite.groupcollide(self.mystey_group, self.bullets,
                                            True, True).keys():
             mystery.mysteryEntered.stop()
             self.sounds['mysterykilled'].play()
@@ -199,8 +200,7 @@ class SpaceInvaders(object):
             MysteryExplosion(mystery, score, self.explosions_group)
             newShip = Mystery()
             self.all_sprites.add(newShip)
-            self.mystey_group .add(newShip)
-
+            self.mystey_group.add(newShip)
 
         for player in sprite.groupcollide(self.player_group, self.enemy_bullets,
                                           True, True).keys():
